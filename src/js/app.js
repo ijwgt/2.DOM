@@ -1,11 +1,29 @@
-// TODO: write code here
+import image from "../img/goblin.png";
 
-// comment this to pass build
-const unusedVariable = "variable";
+document.addEventListener("DOMContentLoaded", () => {
+	const cells = document.querySelectorAll(".cell");
+	const iconElem = document.createElement("img");
+	iconElem.src = image;
+	let currentIndex = 0;
 
-// for demonstration purpose only
-export default function demo(value) {
-  return `Demo: ${value}`;
+	function showTarget() {
+		cells.forEach((elem) => {
+			elem.classList.remove("active");
+		});
+		const icon = document.querySelector("img");
+		if (icon) {
+		  icon.remove();
+		}
+		const randomIndex = Math.floor(Math.random() * cells.length);
+		if (currentIndex !== randomIndex) {
+			cells[randomIndex].insertAdjacentElement("afterbegin", iconElem);
+			cells[randomIndex].classList.add("active");
+			return (currentIndex = randomIndex);
+		} else {
+			showTarget();
+		}
+	}
+
+	setInterval(showTarget, 1000);
 }
-
-console.log("app.js included");
+)
